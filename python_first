@@ -1,1 +1,89 @@
+import random
+hangmane_stages = ['''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========''']
+words = ["panda", "cabin", "ginger"]
+random_word = random.choice(words)
+display = ["_"] * len(random_word)
+print (" ".join(display))
+lives = 6
+gussed_letter = []
+print (hangmane_stages[0])
+while "_" in display and lives > 0:  
+    gussed = input ("please gusse a letter :").lower()
+    if gussed in gussed_letter:
+        print ("you alredy gussed that. try again")
+        print (f"you have {lives} more tries")
 
+        continue
+
+    gussed_letter.append(gussed)
+
+    if gussed not in random_word:
+        lives -= 1
+        print (hangmane_stages[6-lives])
+    else:
+        for position in range(len(random_word)):
+           if random_word[position] == gussed:
+                display[position] = gussed
+    print (display)
+    print (f"you have {lives} more tries:")
+if lives == 0:
+    print ("""
+           you lose
+           """)
+    print (hangmane_stages(-1))
+
+else:
+    print ("""
+        **********
+          you win
+        **********
+           """)
